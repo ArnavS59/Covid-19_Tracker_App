@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Covid_19/data.dart';
+import 'package:Covid_19/widgets/mostaffected.dart';
 import 'package:Covid_19/widgets/worldwide.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,9 +22,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List countryData;
+  fetchCountryData() async {
+    http.Response response =
+        await http.get("https://corona.lmao.ninja/v2/countries");
+    setState(() {
+      countryData = jsonDecode(response.body);
+    });
+  }
+
   @override
   void initState() {
     fetchWorldWideData();
+    fetchCountryData();
     // TODO: implement initState
     super.initState();
   }
@@ -80,6 +91,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ? CircularProgressIndicator()
                   : WorldWide(
                       worldData: worldData,
+                    ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  "Most Affected Countries",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              countryData == null
+                  ? Container()
+                  : MostAffected(
+                      countrydata: countryData,
                     ),
             ],
           ),
