@@ -23,6 +23,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  url_launcher: ^5.5.0
+  shared_preferences: ^0.5.8
+  http: ^0.12.2
+
+
+
+  #flutter: cupernito_buttons
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -32,6 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
