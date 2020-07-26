@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:Covid_19/data.dart';
 import 'package:Covid_19/widgets/mostaffected.dart';
 import 'package:Covid_19/widgets/worldwide.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './widgets/info.dart';
@@ -45,9 +46,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text("Covid-19 Tracker App"),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Theme.of(context).brightness == Brightness.light
+                    ? Icons.lightbulb_outline
+                    : Icons.highlight),
+                onPressed: () {
+                  DynamicTheme.of(context).setBrightness(
+                      Theme.of(context).brightness == Brightness.light
+                          ? Brightness.dark
+                          : Brightness.light);
+                })
+          ],
+          centerTitle: false,
+          title: Text(
+            'COVID-19 TRACKER',
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(

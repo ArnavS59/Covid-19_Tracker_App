@@ -1,3 +1,4 @@
+import 'package:Covid_19/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -31,6 +32,15 @@ class _CountryState extends State<Country> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Country Stats"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                  context: context, delegate: Search(countryList: countryData));
+            },
+          )
+        ],
       ),
       body: countryData == null
           ? Center(child: CircularProgressIndicator())
@@ -38,23 +48,16 @@ class _CountryState extends State<Country> {
               itemBuilder: (context, index) {
                 return Container(
                   height: 130,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[100],
-                          blurRadius: 100,
-                          offset: Offset(0, 10)),
-                    ],
-                  ),
                   child: Row(
                     children: <Widget>[
                       Container(
+                        width: 150,
                         margin: EdgeInsets.symmetric(
                           horizontal: 10,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               countryData[index]["country"],
@@ -103,7 +106,10 @@ class _CountryState extends State<Country> {
                                   countryData[index]["deaths"].toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.grey[800],
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.grey[100]
+                                    : Colors.grey[900],
                               ),
                             ),
                           ],
