@@ -1,6 +1,7 @@
 # Covid_19
 
-A new Flutter project.
+A new Flutter project. A covid-19tracker that uses  API to display realtime data. Built for the purpose for learning flutter.
+
 
 ## Getting Started
 
