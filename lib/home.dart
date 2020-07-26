@@ -5,6 +5,8 @@ import 'package:Covid_19/widgets/mostaffected.dart';
 import 'package:Covid_19/widgets/worldwide.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import './widgets/info.dart';
+import './screens/country.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -25,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List countryData;
   fetchCountryData() async {
     http.Response response =
-        await http.get("https://corona.lmao.ninja/v2/countries");
+        await http.get("https://corona.lmao.ninja/v2/countries?sort=cases");
     setState(() {
       countryData = jsonDecode(response.body);
     });
@@ -79,7 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
                   child: RaisedButton(
                     color: primaryBlack,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Country()));
+                    },
                     child: Text(
                       "Regional",
                       style: TextStyle(color: Colors.white),
@@ -107,6 +112,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   : MostAffected(
                       countrydata: countryData,
                     ),
+              Info(),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Text(
+                  "We are together in this Fight",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
             ],
           ),
         )); // This trailing comma makes auto-formatting nicer for build methods.
